@@ -1,23 +1,49 @@
+import squants.time._
+import squants.storage._
+
 package object blockperf {
 
-  case class Time(t: Double) {
-    val nanoseconds = t.toLong
-    val milliseconds = (t / 1.0e6).toLong
+  case class Time(t: Double, outputUnit : String = "nanoseconds") {
+    val nanoseconds = Nanoseconds(t)
+    val microseconds = nanoseconds.toMicroseconds
+    val milliseconds = nanoseconds.toMilliseconds
 
     def +(another: Time): Time = Time(t + another.t)
 
-    override def toString(): String = f"Time(t=$t%.2f, ns=$nanoseconds%d, ms=$milliseconds%d)";
+    // TODO: Use map and getOrElse to format.
+
+    override def toString(): String =
+      if (outputUnit == "nanoseconds")
+        s"Time(${nanoseconds})"
+      else if (outputUnit == "microseconds")
+        s"Time(${nanoseconds})"
+      else if (outputUnit == "milliseconds")
+        s"Time(${milliseconds})"
+      else
+        s"Time(${nanoseconds})"
+
   }
 
-  case class Space(m: Long) {
-    val memUsed = m.toDouble
-    val memUsedGB = memUsed / math.pow(1024.0, 3)
-    val totalMemory = Runtime.getRuntime().totalMemory
-    val totalGB = totalMemory / math.pow(1024.0, 3)
-    val freeMemory = Runtime.getRuntime().freeMemory
-    val freeGB = totalMemory / math.pow(1024.0, 3)
+  case class Space(m: Long, outputUnit : String = "GB") {
+    val memUsed = Bytes(m)
+    val memFree = Bytes(Runtime.getRuntime.freeMemory)
+    val memTotal = Bytes(Runtime.getRuntime.totalMemory)
 
-    override def toString(): String = f"Space(memUsedGB=$memUsedGB%.2f, free=$freeGB%.2f, total=$totalGB%.2f)";
+    // TODO: Use map and getOrElse to format.
+
+    override def toString(): String =
+      if (outputUnit == "KB")
+        s"Space(used=${memUsed.toKilobytes}, free=${memFree.toKilobytes}, total=${memTotal.toKilobytes})"
+
+      else if (outputUnit == "MB")
+        s"Space(used=${memUsed.toMegabytes}, free=${memFree.toMegabytes}, total=${memTotal.toMegabytes})"
+
+      else if (outputUnit == "GB")
+        s"Space(used=${memUsed.toGigabytes}, free=${memFree.toGigabytes}, total=${memTotal.toGigabytes})"
+
+      else // outputUnit is assumed to be B=Bytes
+        s"Space(used=${memUsed}, free=${memFree}, total=${memTotal})"
+
   }
   // time a block of Scala code - useful for timing everything!
   // return a Time object so we can obtain the time in desired units
