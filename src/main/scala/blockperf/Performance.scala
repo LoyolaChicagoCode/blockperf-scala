@@ -1,6 +1,4 @@
-package cs.luc.edu
-
-package object performance {
+package object blockperf {
 
   case class Time(t: Double) {
     val nanoseconds = t.toLong

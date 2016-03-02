@@ -1,8 +1,8 @@
 organization := "edu.luc.cs"
 
-name := "blockperf-scala"
+name := "blockperf"
 
-version := "0.2"
+version := "0.2.2"
 
 scalaVersion := "2.11.7"
 
