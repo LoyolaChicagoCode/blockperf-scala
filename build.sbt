@@ -2,7 +2,7 @@ organization := "edu.luc.cs"
 
 name := "blockperf"
 
-version := "0.4"
+version := "0.4.1"
 
 scalaVersion := "2.11.7"
 
