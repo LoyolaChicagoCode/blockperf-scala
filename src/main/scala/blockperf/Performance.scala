@@ -5,8 +5,8 @@ package object blockperf {
 
   case class Time(t: Double, outputUnit : String = "nanoseconds") {
     val nanoseconds = Nanoseconds(t)
-    val microseconds = nanoseconds.toMicroseconds
-    val milliseconds = nanoseconds.toMilliseconds
+    val microseconds = nanoseconds in Microseconds
+    val milliseconds = nanoseconds in Milliseconds
 
     def +(another: Time): Time = Time(t + another.t)
 
@@ -33,13 +33,13 @@ package object blockperf {
 
     override def toString(): String =
       if (outputUnit == "KB")
-        s"Space(used=${memUsed.toKilobytes}, free=${memFree.toKilobytes}, total=${memTotal.toKilobytes})"
+        s"Space(used=${memUsed in Kilobytes}, free=${memFree in Kilobytes}, total=${memTotal in Kilobytes})"
 
       else if (outputUnit == "MB")
-        s"Space(used=${memUsed.toMegabytes}, free=${memFree.toMegabytes}, total=${memTotal.toMegabytes})"
+        s"Space(used=${memUsed in Megabytes}, free=${memFree in Megabytes}, total=${memTotal in Megabytes})"
 
       else if (outputUnit == "GB")
-        s"Space(used=${memUsed.toGigabytes}, free=${memFree.toGigabytes}, total=${memTotal.toGigabytes})"
+        s"Space(used=${memUsed in Gigabytes}, free=${memFree in Gigabytes}, total=${memTotal in Gigabytes})"
 
       else // outputUnit is assumed to be B=Bytes
         s"Space(used=${memUsed}, free=${memFree}, total=${memTotal})"
