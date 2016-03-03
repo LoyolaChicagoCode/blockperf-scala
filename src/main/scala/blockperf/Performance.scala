@@ -9,7 +9,7 @@ package object blockperf {
     def +(another: Time): Time = Time(t + another.t)
 
     override def toString(): String = s"Time(${time.toString})"
-    
+
   }
 
   case class Space(m: Long) {
