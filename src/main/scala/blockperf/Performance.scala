@@ -1,5 +1,5 @@
 import squants.time._
-import squants.storage._
+import squants.information._
 
 package object blockperf {
 
