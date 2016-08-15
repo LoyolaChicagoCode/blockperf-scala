@@ -2,7 +2,7 @@ organization := "edu.luc.cs"
 
 name := "blockperf"
 
-version := "0.4.3"
+version := "0.5.0"
 
 scalaVersion := "2.11.7"
 
@@ -20,7 +20,7 @@ resolvers +=
 
 libraryDependencies ++= Seq(
   "com.novocode" % "junit-interface" % "latest.release" % "test",
-  "com.squants"  %% "squants"  % "0.6.1-SNAPSHOT"
+  "com.squants"  %% "squants"  % "0.6.2"
 )
 
 bintrayVcsUrl := Some("git@github.com:LoyolaChicagoCode/blockperf-scala.git")
